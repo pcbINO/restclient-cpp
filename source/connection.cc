@@ -556,6 +556,30 @@ RestClient::Connection::performCurlRequest(const std::string& uri,
 }
 
 /**
+ * @brief HTTP GET method with body
+ *
+ * @param url to query
+ * @param data HTTP body
+ *
+ * @return response struct
+ */
+RestClient::Response
+RestClient::Connection::get(const std::string& url,
+                            const std::string& data) {
+  /** we want HTTP GET */
+  const char* http_get = "GET";
+
+  /** set HTTP GET METHOD even if we have a POST body */
+  curl_easy_setopt(getCurlHandle(), CURLOPT_CUSTOMREQUEST, http_get);
+
+  /** set post fields */
+  curl_easy_setopt(getCurlHandle(), CURLOPT_POSTFIELDS, data.c_str());
+  curl_easy_setopt(getCurlHandle(), CURLOPT_POSTFIELDSIZE, data.size());
+
+  return this->performCurlRequest(url);
+}
+
+/**
  * @brief HTTP GET method
  *
  * @param url to query
@@ -566,6 +590,7 @@ RestClient::Response
 RestClient::Connection::get(const std::string& url) {
   return this->performCurlRequest(url);
 }
+
 /**
  * @brief HTTP GET method
  *
