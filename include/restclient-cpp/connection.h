@@ -150,7 +150,7 @@ class Connection {
 
 
     explicit Connection(const std::string& baseUrl);
-    ~Connection();
+    virtual ~Connection();
 
     // Terminate open connection
     void Terminate();
@@ -224,18 +224,18 @@ class Connection {
 
 
     // Basic HTTP verb methods
-    RestClient::Response get(const std::string& uri);
-    RestClient::Response get(const std::string& uri,
+    virtual RestClient::Response get(const std::string& uri);
+    virtual RestClient::Response get(const std::string& uri,
                              const std::string& data);
-    RestClient::Response post(const std::string& uri,
+    virtual RestClient::Response post(const std::string& uri,
                               const std::string& data);
-    RestClient::Response put(const std::string& uri,
+    virtual RestClient::Response put(const std::string& uri,
                              const std::string& data);
-    RestClient::Response patch(const std::string& uri,
+    virtual RestClient::Response patch(const std::string& uri,
                              const std::string& data);
-    RestClient::Response del(const std::string& uri);
-    RestClient::Response head(const std::string& uri);
-    RestClient::Response options(const std::string& uri);
+    virtual RestClient::Response del(const std::string& uri);
+    virtual RestClient::Response head(const std::string& uri);
+    virtual RestClient::Response options(const std::string& uri);
 
     // GET with custom response structure
     RestClient::Response*
